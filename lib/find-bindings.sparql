@@ -1,0 +1,15 @@
+PREFIX cco: <http://rdf.ebi.ac.uk/terms/chembl#>
+PREFIX ssr: <http://semanticscience.org/resource/>
+
+SELECT * WHERE {
+  ?activity a cco:Activity ;
+    cco:hasAssay ?assay ;
+    cco:hasMolecule ?molecule ;
+    cco:publishedType "Ki" ;
+    cco:publishedValue ?value .
+  ?molecule ssr:SIO_000008 ?moleculeAttr.
+  ?moleculeAttr a ssr:CHEMINF_000018 ;
+    ssr:SIO_000300 ?smiles .
+  ?assay cco:hasTarget ?target .
+  {filters}
+}
