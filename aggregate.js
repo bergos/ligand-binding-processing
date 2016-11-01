@@ -14,7 +14,9 @@ function aggregate (binding) {
   }
 
   binding.label = binding.smiles + ' - ' + kiValue
+  binding.kiValue = kiValue
   binding.scaledKiValue = kiValue / 10000
+  binding.binds = kiValue !== 10000 ? 1.0 : 0.0
 
   return Promise.resolve(binding)
 }
