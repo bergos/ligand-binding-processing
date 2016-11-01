@@ -14,8 +14,8 @@
     "ligand-binding-from-chembl": "./bin/from-chembl.js",
     "ligand-binding-info": "./bin/info.js",
     "ligand-binding-merge": "./bin/merge.js",
-    "ligand-binding-split": "./bin/split",
-    "ligand-binding-tokenize": "./bin/tokenize"
+    "ligand-binding-split": "./bin/split.js",
+    "ligand-binding-tokenize": "./bin/tokenize.js"
   },
   "repository": {
     "type": "git",
