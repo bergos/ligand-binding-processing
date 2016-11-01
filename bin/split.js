@@ -16,8 +16,16 @@ function processBindings () {
       exclude = JSON.parse(fs.readFileSync(program.exclude))
     }
 
+    var filter = null
+
+    if (typeof program.binds !== 'undefined') {
+      filter = {binds: program.binds}
+    }
+
     return split(bindings, {
+      filter: filter,
       sort: program.sort,
+      shuffle: program.shuffle,
       exclude: exclude,
       offset: program.offset,
       limit: program.limit
@@ -34,7 +42,9 @@ function processBindings () {
 program
   .usage('[options] <file>')
   .option('-v, --verbose', 'verbose output')
+  .option('-b, --binds <n>', 'filter by binds property (0/1)', parseInt)
   .option('-s, --sort', 'sort bindings by scaledKiValue')
+  .option('-r, --suffle', 'shuffle bindings')
   .option('-o, --offset <n>', 'offset', parseFloat)
   .option('-l, --limit <n>', 'limit', parseInt)
   .option('-e, --exclude <file>', 'exclude bindings from this file')

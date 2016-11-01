@@ -1,9 +1,19 @@
+var filter = require('lodash/filter')
+var shuffle = require('lodash/shuffle')
 var sortBy = require('lodash/sortBy')
 var differenceBy = require('lodash/differenceBy')
 
 function split (bindings, options) {
+  if (options.filter) {
+    bindings = filter(bindings, options.filter)
+  }
+
   if (options.sort) {
     bindings = sortBy(bindings, 'scaledKiValue')
+  }
+
+  if (options.shuffle) {
+    bindings = shuffle(bindings)
   }
 
   if (options.exclude) {
