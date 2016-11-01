@@ -7,7 +7,13 @@ var program = require('commander')
 var range = require('lodash/range')
 
 function processBindings () {
-  return fromFileOrStream(program.args.shift(), process.stdin, program.verbose).then(function (data) {
+  var filename = program.args.shift()
+
+  if (typeof filename !== 'string') {
+    filename = null
+  }
+
+  return fromFileOrStream(filename, process.stdin, program.verbose).then(function (data) {
     var bindings = JSON.parse(data)
 
     if (program.kiValue) {
