@@ -30,6 +30,7 @@ function processBindings (filename) {
 
 program
   .option('-v, --verbose', 'verbose output')
+  .option('-p, --properties <n>', 'list of output properties as comma separated list')
 
 program
   .command('mapping <file>')
@@ -37,7 +38,8 @@ program
     process.stderr.write('build NN-Mapping file for SMILES tokens...\n')
 
     processBindings(filename).then(function (builder) {
-      var mapping = builder.build()
+      var properties = (program.properties || 'binds,kiValue,scaledKiValue').split(',')
+      var mapping = builder.build(properties)
 
       process.stderr.write(mapping.loop[0].mapping.length + ' unique tokens found\n')
 
@@ -53,7 +55,8 @@ program
     process.stderr.write('build model I/O description for SMILES tokens...\n')
 
     processBindings(filename).then(function (builder) {
-      var modelIO = builder.buildModelIO()
+      var properties = (program.properties || 'binds,kiValue,scaledKiValue').split(',')
+      var modelIO = builder.buildModelIO(properties)
 
       process.stderr.write((modelIO.input.length + modelIO.output.length) + ' I/O neurons\n')
 

@@ -48,7 +48,7 @@ function MappingBuilder () {
     })
   }
 
-  this.build = function () {
+  this.build = function (properties) {
     return {
       loop: [{
         group: 'input',
@@ -61,22 +61,26 @@ function MappingBuilder () {
           }
         })
       }],
-      map: [{
-        group: 'output',
-        property: 'scaledKiValue',
-        mapping: [{
-          neuron: 'output:scaledKiValue'
-        }]
-      }]
+      map: properties.map(function (property) {
+        return {
+          group: 'output',
+          property: property,
+          mapping: [{
+            neuron: 'output:' + property
+          }]
+        }
+      })
     }
   }
 
-  this.buildModelIO = function () {
+  this.buildModelIO = function (properties) {
     return {
       input: keys(tokens).sort(tokenSort).map(function (token) {
         return 'input:' + token.slice(7)
       }),
-      output: ['output:scaledKiValue']
+      output: properties.map(function (property) {
+        return 'output:' + property
+      })
     }
   }
 }
